@@ -11,8 +11,8 @@ Además, este proyecto busca servir como guía técnica para la instalación, co
 ## Requerimientos
 - Maquina POWER
 - Maquina x86
-- PGadmin 4 (opcional)
-- WinSCP
+- pgAdmin 4 (opcional)
+- WinSCP (opcional)
 
 # Instalacion de la demo
 
@@ -96,6 +96,21 @@ sudo systemctl start postgresql
 sudo systemctl enable postgresql
 ```
 # Pruebas realizadas
+
+### Dentro de la sesion postgres, hacer
+```
+pgbench -i -s 50 nombre_de_tu_base
+```
+`-i` inicializacion de la base
+`-s` escala de la cantidad de datos
+### Primera prueba guardandola en un .txt
+```
+pgbench -c 10 -j 2 -T 60 nombre_de_tu_base > resultados.txt
+```
+`-c` cantidad de clientes
+`-j` cantidad de hilos
+`-T` duracion de la prueba
+
 
 
 
