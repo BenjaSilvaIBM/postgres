@@ -1,4 +1,4 @@
-# pasos para hacer la demo de postgres con pgbench
+# Pasos para hacer la demo de postgres con pgbench
 
 ## Resumen del proyecto
 Este proyecto tiene como objetivo comparar el rendimiento de dos arquitecturas de hardware IBM POWER y x86 mediante la evaluación de su desempeño en la ejecución de transacciones sobre una base de datos PostgreSQL. Utilizando herramientas como pgbench, se medirá la cantidad de transacciones por segundo (TPS) que cada plataforma es capaz de procesar bajo condiciones similares de carga y configuración.
