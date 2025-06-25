@@ -102,13 +102,16 @@ sudo systemctl enable postgresql
 pgbench -i -s 50 nombre_de_tu_base
 ```
 `-i` inicializacion de la base
+
 `-s` escala de la cantidad de datos
 ### Primera prueba guardandola en un .txt
 ```
 pgbench -c 10 -j 2 -T 60 nombre_de_tu_base > resultados.txt
 ```
 `-c` cantidad de clientes
+
 `-j` cantidad de hilos
+
 `-T` duracion de la prueba
 
 
