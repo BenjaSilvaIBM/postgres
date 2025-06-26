@@ -7,7 +7,7 @@ El propósito es proporcionar una visión clara sobre las capacidades y ventajas
 
 Además, este proyecto busca servir como guía técnica para la instalación, configuración y ejecución de pruebas de rendimiento con PostgreSQL, facilitando así futuras implementaciones sobre arquitecturas POWER para entornos que requieran alta eficiencia y confiabilidad.
 ## Arquitectura
-
+![alt text]()
 ## Requerimientos
 - Maquina POWER
 - Maquina x86
