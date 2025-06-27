@@ -57,7 +57,7 @@ exit
 ```
 ### Paso 7: reinicia PostgreSQL
 ```
-sudo systemctl restart postresql
+sudo systemctl restart postgresql
 ```
 ### Paso 8: importa y descomprime la dvdrental
 ```
