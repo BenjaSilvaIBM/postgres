@@ -48,6 +48,7 @@ nano /var/lib/pgsql/data/postgresql.conf
 sudo passwd postgres
 ```
 ### Paso 6: cambiar la contraseña del usuario db postgres
+utiliza este codigo en el root si durante este proceso no funciona algo `sudo systemctl restart postgresql`
 ```
 sudo -i -u postgres
 psql
@@ -55,43 +56,39 @@ ALTER USER postgres WITH PASSWORD 'nueva_contraseña_segura';
 exit
 exit
 ```
-### Paso 7: reinicia PostgreSQL
-```
-sudo systemctl restart postgresql
-```
-### Paso 8: importa y descomprime la dvdrental
+### Paso 7: importa y descomprime la dvdrental
 ```
 wget https://www.postgresqltutorial.com/wp-content/uploads/2019/05/dvdrental.zip
 unzip dvdrental.zip
 ```
-### Paso 9: 
+### Paso 8: 
 ```
 cp dvdrental.tar /var/lib/pgsql/
 chown postgres:postgres /var/lib/pgsql/dvdrental.tar
 ```
-### Paso 10: entra a postgres como user
+### Paso 9: entra a postgres como user
 ```
 sudo -i -u postgres
 ```
-### Paso 11: crea una nueva database llamada dvdrental
+### Paso 10: crea una nueva database llamada dvdrental
 ```
 createdb dvdrental
 ```
-### Paso 12: restaura el backup dentro de la dvdrental database y sales
+### Paso 11: restaura el backup dentro de la dvdrental database y sales
 ```
 pg_restore -U postgres -d dvdrental dvdrental.tar
 \q
 ```
-### Paso 13: configura el firewalld (si es que tiene)
+### Paso 12: configura el firewalld (si es que tiene)
 ```
 sudo firewall-cmd --permanent --add-port=5432/tcp
 sudo firewall-cmd --reload
 ```
-### Paso 14: configura el SELinux
+### Paso 13: configura el SELinux (si es que tiene)
 ```
 sudo setsebool -P httpd_can_network_connect_db 1
 ```
-### Paso 15: inicia y habilita el postgresql
+### Paso 14: inicia y habilita el postgresql
 ```
 sudo systemctl start postgresql
 sudo systemctl enable postgresql
