@@ -39,7 +39,7 @@ host    all             all             0.0.0.0/0            md5
 ```
 nano /var/lib/pgsql/data/postgresql.conf
 ```
-### Paso 4: cambiar y descomentar algunos parametros (necesario este)
+### Paso 4: cambiar algunos parametros (necesario este)
 
 `listen_addresses = '*'`
 
