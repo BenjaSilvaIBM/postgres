@@ -21,7 +21,7 @@ Además, este proyecto busca servir como guía técnica para la instalación, co
 ```
 sudo dnf install postgresql-server postgresql-contrib -y
 ```
-### Paso 2: utiliza
+### Paso 2: utilizar
 ```
 /usr/bin/postgresql-setup --initdb
 ```
@@ -35,13 +35,17 @@ nano vi /var/lib/pgsql/data/pg_hba.conf
 host    all             all             0.0.0.0/0            md5
 #host    all             all             127.0.0.1/32            ident
 ```
-### Paso 3.5: cambiar la config
+### Paso 3.5: cambiar la config o cargar la config subida al Github
 ```
 nano /var/lib/pgsql/data/postgresql.conf
 ```
-### Paso 4: cambiar y descomentar
+### Paso 4: cambiar y descomentar algunos parametros (necesario este)
 
 `listen_addresses = '*'`
+
+Suele ser necesario reiniciar el servicio de postgres para que los cambios permanezcan
+
+```sudo systemctl restart postgresql```
 
 ### Paso 5: cambiar la contraseña del usuario consola postgres (min. 8 caracteres)
 ```
@@ -93,24 +97,76 @@ sudo setsebool -P httpd_can_network_connect_db 1
 sudo systemctl start postgresql
 sudo systemctl enable postgresql
 ```
-# Pruebas realizadas
+# Pruebas ejemplos
 
 ### Dentro de la sesion postgres, hacer
 ```
-pgbench -i -s 50 nombre_de_tu_base
+pgbench -i -s 50 dvdrental
 ```
 `-i` inicializacion de la base
 
-`-s` escala de la cantidad de datos
-### Primera prueba guardandola en un .txt
+`-s` escala de la cantidad de datos (50 es un ejemplo pero podria hacerse con 1000)
+
+### Ejecucion de la prueba (valores bajos de ejemplo, deberian superar o forzar el limite de la maquina)
 ```
-pgbench -c 10 -j 2 -T 60 nombre_de_tu_base > resultados.txt
+pgbench -c 10 -j 2 -T 60 dvdrental
 ```
-`-c` cantidad de clientes
+`-c` cantidad de clientes 
 
 `-j` cantidad de hilos
 
 `-T` duracion de la prueba
+
+# algunas herramientas y su instalacion para saber como va el rendimiento
+
+## sar
+
+### instalacion de sar
+```
+sudo yum install -y sysstat
+```
+
+### preparacion de uso de esta herramienta
+```
+sudo systemctl enable sysstat
+```
+```
+sudo systemctl start sysstat
+```
+
+### Ejecuta sar con un intervalo y el número de muestras que desees (por ejemplo, 360 muestras = 1 h de datos)
+
+```
+sar -r 1 5 | awk 'BEGIN {OFS=","} /^[0-9]/ {print $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13}' > memoria.csv &  sar -u 1 5 | awk 'BEGIN {OFS=","} /^[0-9]/ {print $1,$2,$3,$4,$5,$6,$7,$8,$9}' > cpu.csv
+```
+
+## screen
+### instalacion
+```
+sudo yum install screen
+```
+### crear una instancia para el benchmark
+```
+screen -S benchmark
+```
+### reanudarla en caso de que se cerrara
+```
+screen -r benchmark
+```
+##nmon
+### instalacion
+```
+sudo yum install nmon
+```
+### uso de esta herramienta (durante 600 segundos)
+```
+nmon -f -s 10 -c 60
+```
+`-s` cada cierta cantidad de tiempo (10 segundos)
+`-c` cantidad de veces que se hara (repetir 60 veces)
+
+### Se agregaran algunos detalles al github para que se vea que tipo de resultados se obtuvieron
+
 
 
 
